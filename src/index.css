@@ -106,6 +106,16 @@
     --border: 210 20% 18%;
     --input: 210 20% 18%;
     --ring: 210 60% 45%;
+    
+    /* Dark mode risk colors remain the same */
+    --risk-low: 120 60% 45%;
+    --risk-low-foreground: 0 0% 100%;
+    --risk-moderate: 45 95% 55%;
+    --risk-moderate-foreground: 210 30% 8%;
+    --risk-high: 25 95% 53%;
+    --risk-high-foreground: 0 0% 100%;
+    --risk-critical: 0 85% 55%;
+    --risk-critical-foreground: 0 0% 100%;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;

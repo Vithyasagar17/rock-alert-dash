@@ -3,20 +3,17 @@ import { Header } from './Header';
 import { RiskStatusCard } from './RiskStatusCard';
 import { TrendChart } from './TrendChart';
 import { EnvironmentalDataTable } from './EnvironmentalDataTable';
-import { AlertsSection } from './AlertsSection';
 import { toast } from '@/hooks/use-toast';
 import { 
   getCurrentRisk, 
   generateTrendData, 
-  getEnvironmentalData, 
-  getActiveAlerts 
+  getEnvironmentalData 
 } from '@/data/mockData';
 
 export const Dashboard = () => {
   const [riskData, setRiskData] = useState(getCurrentRisk());
   const [trendData, setTrendData] = useState(generateTrendData());
   const [environmentalData, setEnvironmentalData] = useState(getEnvironmentalData());
-  const [alerts, setAlerts] = useState(getActiveAlerts());
   const [lastUpdate, setLastUpdate] = useState(new Date());
 
   // Auto-refresh data every 5 seconds
@@ -24,12 +21,10 @@ export const Dashboard = () => {
     const interval = setInterval(() => {
       const newRiskData = getCurrentRisk();
       const newEnvironmentalData = getEnvironmentalData();
-      const newAlerts = getActiveAlerts();
       
       // Update data
       setRiskData(newRiskData);
       setEnvironmentalData(newEnvironmentalData);
-      setAlerts(newAlerts);
       setLastUpdate(new Date());
       
       // Update trend data (add new point, remove oldest)
@@ -100,18 +95,13 @@ export const Dashboard = () => {
             <RiskStatusCard riskData={riskData} />
           </div>
           <div className="lg:col-span-2">
-            <AlertsSection alerts={alerts} />
+            <EnvironmentalDataTable data={environmentalData} />
           </div>
         </div>
 
         {/* Trend Chart */}
         <div className="mb-6">
           <TrendChart data={trendData} />
-        </div>
-
-        {/* Environmental Data */}
-        <div className="mb-6">
-          <EnvironmentalDataTable data={environmentalData} />
         </div>
 
         {/* Footer Info */}

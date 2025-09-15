@@ -1,5 +1,6 @@
-import { Mountain, Home, History, Settings, Download } from 'lucide-react';
+import { Mountain, Home, History, Settings, Download, Sun, Moon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useTheme } from 'next-themes';
 import rockIcon from '@/assets/rock-icon.png';
 
 interface HeaderProps {
@@ -7,11 +8,17 @@ interface HeaderProps {
 }
 
 export const Header = ({ onExportData }: HeaderProps) => {
+  const { theme, setTheme } = useTheme();
+  
   const navItems = [
     { name: 'Home', icon: Home, active: true },
     { name: 'History', icon: History, active: false },
     { name: 'Settings', icon: Settings, active: false }
   ];
+
+  const toggleTheme = () => {
+    setTheme(theme === 'dark' ? 'light' : 'dark');
+  };
 
   return (
     <header className="industrial-card border-b-2 border-primary/20 mb-6">
@@ -57,16 +64,30 @@ export const Header = ({ onExportData }: HeaderProps) => {
               ))}
             </nav>
 
-            {/* Export Button */}
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={onExportData}
-              className="flex items-center gap-2 border-primary/20 hover:bg-primary/5"
-            >
-              <Download className="w-4 h-4" />
-              <span className="hidden sm:inline">Export CSV</span>
-            </Button>
+            {/* Theme Toggle and Export */}
+            <div className="flex items-center gap-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={toggleTheme}
+                className="flex items-center gap-2 border-primary/20 hover:bg-primary/5"
+              >
+                {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+                <span className="hidden sm:inline">
+                  {theme === 'dark' ? 'Light' : 'Dark'}
+                </span>
+              </Button>
+              
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={onExportData}
+                className="flex items-center gap-2 border-primary/20 hover:bg-primary/5"
+              >
+                <Download className="w-4 h-4" />
+                <span className="hidden sm:inline">Export CSV</span>
+              </Button>
+            </div>
           </div>
         </div>
       </div>
